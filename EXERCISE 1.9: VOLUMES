@@ -1,0 +1,9 @@
+# First we must create a text.log file in the target directory (to prevent docker from creating a folder)
+# Then use this command where /usr/src/app/ will naviagte to home direcory 
+$ docker run -v "$(pwd)/text.log:/usr/src/app/text.log" devopsdockeruh/simple-web-service
+
+
+
+
+
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
