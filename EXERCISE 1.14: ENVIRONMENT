@@ -1,0 +1,32 @@
+# Font end Dockerfile
+FROM node:16
+
+WORKDIR /usr/src/app
+COPY . ./
+
+RUN npm install
+
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
+EXPOSE 5000
+
+RUN npm run build
+RUN npm install -g serve
+
+CMD [ "npx", "serve", "-s", "-n", "-l", "5000", "build" ]
+
+# Backend Dockerfile
+FROM golang:1.16
+
+WORKDIR /usr/src/app
+COPY . ./
+
+RUN go build
+
+ENV REQUEST_ORIGIN=http://localhost:5000
+
+CMD ["./server"]
+
+# Command
+docker run -d -p 5000:5000 --name frontend frontend_con
+docker run -d -p 8080:8080 --name backend backend_con
